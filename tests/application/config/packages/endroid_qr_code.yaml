@@ -1,25 +1,65 @@
-endroid_qr_code:
-    default:
-        writer: Endroid\QrCode\Writer\PngWriter
-        data: 'This is customized QR code'
-        label_text: 'This is the label'
-    custom:
-        writer: Endroid\QrCode\Writer\SvgWriter
-        writer_options: []
-        data: 'This is customized QR code'
-        size: 300
-        encoding: 'UTF-8'
-        error_correction_level: 'high'
-        round_block_size_mode: 'margin'
-        logo_path: '%kernel.project_dir%/assets/symfony.png'
-        logo_resize_to_width: 150
-        label_text: 'This is the label'
-        label_font_path: '%kernel.project_dir%/assets/open_sans.ttf'
-        label_font_size: 20
-        label_alignment: 'center'
-        validate_result: false
-    debug:
-        writer: Endroid\QrCode\Writer\DebugWriter
-        data: 'This is the QR code we debug'
-        encoding: 'ISO-8859-1'
-        label_text: 'This is the label'
+isten: “:443"  # Allows Hysteria to listen on both IPv4 and IPv6
+
+# TLS Settings with updated paths for the certificate and key
+tls:
+  cert: /etc/ssl/cloudflare/fullchain.pem
+  key: /etc/ssl/cloudflare/privkey.pem
+
+# Authentication configuration
+auth:
+  type: password
+  password: "oSbXsut0ahYFtpY4NQqyIq1jP"
+
+# Masquerade settings
+masquerade:
+  type: proxy
+  proxy:
+    url: https://www.bbc.com/
+    rewriteHost: true
+
+# QUIC flow control settings
+quic:
+  initStreamReceiveWindow: 134217728    # 128 MB
+  maxStreamReceiveWindow: 268435456     # 256 MB
+  initConnReceiveWindow: 268435456      # 256 MB
+  maxConnReceiveWindow: 536870912       # 512 MB
+  connectionMigration: true
+  max_udp_payload_size: 1378
+
+# Bandwidth limits
+bandwidth:
+  up: 200 mbps
+  down: 200 mbps
+
+# Port hopping settings
+portHopping:
+  ports: 20000-50000
+  hopInterval: 30s
+
+# DNS resolver settings
+resolver:
+  type: "udp"
+  udp:
+    addr: "1.1.1.2:53"  # Cloudflare DNS
+    timeout: "4s"
+
+# Speed test settings
+speedTest: true
+
+# Obfuscation settings
+obfs:
+  type: salamander
+  salamander:
+    password: Hyu988kjm@klcjsllds76
+
+# Traffic sniffing settings
+sniff:
+  enable: true
+  timeout: 2s
+  tcpPorts: 80,443
+  udpPorts: all
+
+# Logging settings
+log:
+  level: info
+  format: console
